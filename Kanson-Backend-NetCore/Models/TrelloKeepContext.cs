@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 
-namespace ToDoApi.Models
+namespace KansonBackendNetCore.Models
 {
     public partial class TrelloKeepContext : DbContext
     {

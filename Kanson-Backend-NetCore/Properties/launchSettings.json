@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "ToDoApi": {
+    "Kanson-Backend-NetCore": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "",

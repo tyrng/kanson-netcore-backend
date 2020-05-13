@@ -1,4 +1,4 @@
-﻿namespace ToDoApi.Helpers
+﻿namespace KansonBackendNetCore.Helpers
 {
     public class AppSettings
     {

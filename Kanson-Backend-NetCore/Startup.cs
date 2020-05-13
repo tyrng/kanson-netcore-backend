@@ -12,13 +12,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using ToDoApi.Models;
-using ToDoApi.Helpers;
+using KansonBackendNetCore.Models;
+using KansonBackendNetCore.Helpers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ToDoApi
+namespace KansonBackendNetCore
 {
     public class Startup
     {

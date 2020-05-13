@@ -10,12 +10,12 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text;
-using ToDoApi.Models;
-using ToDoApi.Helpers;
+using KansonBackendNetCore.Models;
+using KansonBackendNetCore.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
-namespace ToDoApi.Controllers
+namespace KansonBackendNetCore.Controllers
 {
     [Authorize]
     [Route("[controller]")]

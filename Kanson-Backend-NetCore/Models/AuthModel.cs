@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ToDoApi.Models
+namespace KansonBackendNetCore.Models
 {
     public class AuthModel
     {

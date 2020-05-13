@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ToDoApi.Models
+namespace KansonBackendNetCore.Models
 {
     public partial class ListsDTO
     {

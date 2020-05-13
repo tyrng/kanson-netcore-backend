@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ToDoApi.Models;
+using KansonBackendNetCore.Models;
 using Microsoft.AspNetCore.Authentication;
 using System.Diagnostics;
 
-namespace ToDoApi.Controllers
+namespace KansonBackendNetCore.Controllers
 {
     [Authorize]
     [Route("[controller]")]
