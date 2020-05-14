@@ -1,0 +1,80 @@
+USE [Trello-Keep]
+GO
+/****** Object:  Table [dbo].[Boards]    Script Date: 2020-05-15 07:25:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Boards](
+	[id] [varchar](50) NOT NULL,
+	[userId] [varchar](50) NOT NULL,
+	[index] [int] NOT NULL,
+	[title] [varchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Cards]    Script Date: 2020-05-15 07:25:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cards](
+	[id] [varchar](50) NOT NULL,
+	[listId] [varchar](50) NOT NULL,
+	[index] [int] NOT NULL,
+	[text] [varchar](max) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Lists]    Script Date: 2020-05-15 07:25:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Lists](
+	[id] [varchar](50) NOT NULL,
+	[boardId] [varchar](50) NOT NULL,
+	[index] [int] NOT NULL,
+	[title] [varchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users]    Script Date: 2020-05-15 07:25:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[id] [varchar](50) NOT NULL,
+	[firstName] [varchar](50) NOT NULL,
+	[lastName] [varchar](50) NOT NULL,
+	[username] [varchar](50) NOT NULL,
+	[password] [varchar](max) NOT NULL,
+	[token] [varchar](max) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Boards]  WITH CHECK ADD FOREIGN KEY([userId])
+REFERENCES [dbo].[Users] ([id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Cards]  WITH CHECK ADD FOREIGN KEY([listId])
+REFERENCES [dbo].[Lists] ([id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Lists]  WITH CHECK ADD FOREIGN KEY([boardId])
+REFERENCES [dbo].[Boards] ([id])
+ON DELETE CASCADE
+GO
