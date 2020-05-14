@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace KansonBackendNetCore.Models
+namespace KansonNetCoreBackend.Models
 {
     public partial class Lists
     {

@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RootNamespace>KansonBackendNetCore</RootNamespace>
+    <RootNamespace>KansonNetcoreBackend</RootNamespace>
+    <AssemblyName>kanson-netcore-backend</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

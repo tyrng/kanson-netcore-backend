@@ -2,16 +2,21 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace KansonBackendNetCore.Models
+namespace KansonNetCoreBackend.Models
 {
-    public partial class UsersDTO
+    public partial class Users
     {
-        public UsersDTO() { }
+        public Users()
+        {
+            Boards = new HashSet<Boards>();
+        }
 
         public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
+        public string Password { get; set; }
         public string Token { get; set; }
+        public virtual ICollection<Boards> Boards { get; set; }
     }
 }

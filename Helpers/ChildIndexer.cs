@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KansonBackendNetCore.Helpers
+namespace KansonNetCoreBackend.Helpers
 {
     public class ChildIndexer
     {

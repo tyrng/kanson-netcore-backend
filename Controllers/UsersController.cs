@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using KansonBackendNetCore.Helpers;
-using KansonBackendNetCore.Models;
+using KansonNetCoreBackend.Helpers;
+using KansonNetCoreBackend.Models;
 
-namespace KansonBackendNetCore.Controllers
+namespace KansonNetCoreBackend.Controllers
 {
     [Authorize]
     [Route("[controller]")]

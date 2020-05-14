@@ -1,4 +1,4 @@
-﻿namespace KansonBackendNetCore.Helpers
+﻿namespace KansonNetCoreBackend.Helpers
 {
     public class AppSettings
     {

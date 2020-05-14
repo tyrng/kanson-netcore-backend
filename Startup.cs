@@ -12,13 +12,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using KansonBackendNetCore.Models;
-using KansonBackendNetCore.Helpers;
+using KansonNetCoreBackend.Models;
+using KansonNetCoreBackend.Helpers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace KansonBackendNetCore
+namespace KansonNetCoreBackend
 {
     public class Startup
     {
