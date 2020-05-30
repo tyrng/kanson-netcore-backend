@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using KansonNetCoreBackend.Models;
 using Microsoft.AspNetCore.Authentication;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace KansonNetCoreBackend.Controllers
 {
@@ -28,9 +29,11 @@ namespace KansonNetCoreBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BoardsDTO>>> GetBoards()
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
-            var user = await _context.Users.Include(o => o.Boards).FirstOrDefaultAsync(x => x.Token == accessToken);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var user = await _context.Users.Include(o => o.Boards).FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user != null)
             {
@@ -48,9 +51,11 @@ namespace KansonNetCoreBackend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BoardsDTO>> GetBoards(string id)
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
-            var user = await _context.Users.Include(o => o.Boards).FirstOrDefaultAsync(x => x.Token == accessToken);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var user = await _context.Users.Include(o => o.Boards).FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user != null)
             {
@@ -70,9 +75,11 @@ namespace KansonNetCoreBackend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBoards(string id, Boards boards)
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Token == accessToken);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var user = await _context.Users.Include(o => o.Boards).FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user != null)
             {
@@ -109,9 +116,11 @@ namespace KansonNetCoreBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<BoardsDTO>> PostBoards(Boards boards)
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Token == accessToken);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var user = await _context.Users.Include(o => o.Boards).FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user != null && boards.UserId == user.Id)
             {
@@ -141,9 +150,11 @@ namespace KansonNetCoreBackend.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<BoardsDTO>> DeleteBoards(string id)
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
-            var user = await _context.Users.Include(o => o.Boards).FirstOrDefaultAsync(x => x.Token == accessToken);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var user = await _context.Users.Include(o => o.Boards).FirstOrDefaultAsync(x => x.Id == userId);
             var boards = user.Boards.ToList();
             var board = user.Boards.FirstOrDefault(b => b.Id == id);
 
@@ -179,9 +190,11 @@ namespace KansonNetCoreBackend.Controllers
         [HttpPost("sort")]
         public async Task<ActionResult<BoardsDTO>> SortBoards(Dictionary<string, int> boardIndices) // { "id": index }
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
-            var user = await _context.Users.Include(o => o.Boards).FirstOrDefaultAsync(x => x.Token == accessToken);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var user = await _context.Users.Include(o => o.Boards).FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user == null)
             {

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KansonNetCoreBackend.Models;
 using KansonNetCoreBackend.Helpers;
+using System.Security.Claims;
 
 namespace KansonNetCoreBackend.Controllers
 {
@@ -27,11 +28,13 @@ namespace KansonNetCoreBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ListsDTO>>> GetLists()
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
             var user = await _context.Users.Include(o => o.Boards)
                 .ThenInclude(o => o.Lists)
-                .FirstOrDefaultAsync(x => x.Token == accessToken);
+                .FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user != null)
             {
@@ -49,11 +52,13 @@ namespace KansonNetCoreBackend.Controllers
         [HttpGet("ofBoard/{id}")]
         public async Task<ActionResult<IEnumerable<ListsDTO>>> GetListsByBoardId(string id)
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
             var user = await _context.Users.Include(o => o.Boards)
                 .ThenInclude(o => o.Lists)
-                .FirstOrDefaultAsync(x => x.Token == accessToken);
+                .FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user != null)
             {
@@ -67,11 +72,13 @@ namespace KansonNetCoreBackend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ListsDTO>> GetLists(string id)
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
             var user = await _context.Users.Include(o => o.Boards)
                 .ThenInclude(o => o.Lists)
-                .FirstOrDefaultAsync(x => x.Token == accessToken);
+                .FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user != null)
             {
@@ -91,11 +98,13 @@ namespace KansonNetCoreBackend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLists(string id, Lists lists)
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
             var user = await _context.Users.Include(o => o.Boards)
                 .ThenInclude(o => o.Lists)
-                .FirstOrDefaultAsync(x => x.Token == accessToken);
+                .FirstOrDefaultAsync(x => x.Id == userId);
 
             var board = user.Boards.FirstOrDefault(b => b.Id == lists.BoardId);
 
@@ -153,10 +162,12 @@ namespace KansonNetCoreBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<ListsDTO>> PostLists(Lists lists)
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
             var user = await _context.Users.Include(o => o.Boards)
-                .FirstOrDefaultAsync(x => x.Token == accessToken);
+                .FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user == null)
             {
@@ -193,11 +204,13 @@ namespace KansonNetCoreBackend.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<ListsDTO>> DeleteLists(string id)
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
             var user = await _context.Users.Include(o => o.Boards)
                 .ThenInclude(o => o.Lists)
-                .FirstOrDefaultAsync(x => x.Token == accessToken);
+                .FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user == null)
             {
@@ -239,11 +252,13 @@ namespace KansonNetCoreBackend.Controllers
         [HttpPost("sort")]
         public async Task<ActionResult<ListsDTO>> SortLists(Dictionary<string, int> listIndices) // { "id": index }
         {
-            HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
-            string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            //HttpContext.Request.Headers.TryGetValue("Authorization", out var authenticateInfo);
+            //string accessToken = authenticateInfo.ToString().Substring("Bearer ".Length);
             var user = await _context.Users.Include(o => o.Boards)
                 .ThenInclude(o => o.Lists)
-                .FirstOrDefaultAsync(x => x.Token == accessToken);
+                .FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user == null)
             {

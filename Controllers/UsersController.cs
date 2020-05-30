@@ -76,7 +76,7 @@ namespace KansonNetCoreBackend.Controllers
                 return BadRequest();
             }
 
-            users.Token = AuthController.GenerateNewToken(users.Id, _appSettings.Secret);
+            //users.Token = AuthController.GenerateNewToken(users.Id, _appSettings.Secret);
 
             _context.Entry(users).State = EntityState.Modified;
 
@@ -86,7 +86,7 @@ namespace KansonNetCoreBackend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UsersExists(id))
+                if (!UsersExists(_context, id))
                 {
                     return NotFound();
                 }
@@ -108,7 +108,63 @@ namespace KansonNetCoreBackend.Controllers
         {
             _context.Users.Add(users);
             users.Token = AuthController.GenerateNewToken(users.Id, _appSettings.Secret);
-            Boards defaultBoard = new Boards 
+
+            InitializeNewUser(_context, users);
+
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (UsersExists(_context, users.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtAction("GetUsers", new { id = users.Id }, ItemToDTO(users));
+        }
+
+        // DELETE: api/Users/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<UsersDTO>> DeleteUsers(string id)
+        {
+            var users = await _context.Users.FindAsync(id);
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            _context.Users.Remove(users);
+            await _context.SaveChangesAsync();
+
+            return ItemToDTO(users);
+        }
+
+        public static bool UsersExists(TrelloKeepContext _context, string id)
+        {
+            return _context.Users.Any(e => e.Id == id);
+        }
+
+        public static UsersDTO ItemToDTO(Users users) =>
+        new UsersDTO
+        {
+            Id = users.Id,
+            FirstName = users.FirstName,
+            LastName = users.LastName,
+            Username = users.Username,
+            Token = users.Token
+        };
+
+        public static void InitializeNewUser(TrelloKeepContext _context, Users users)
+        {
+            Boards defaultBoard = new Boards
             {
                 Id = Guid.NewGuid().ToString(),
                 Title = "Default Board",
@@ -116,7 +172,7 @@ namespace KansonNetCoreBackend.Controllers
                 UserId = users.Id
             };
             _context.Boards.Add(defaultBoard);
-            Lists toDoList = new Lists 
+            Lists toDoList = new Lists
             {
                 Id = Guid.NewGuid().ToString(),
                 Title = "To do",
@@ -164,54 +220,6 @@ namespace KansonNetCoreBackend.Controllers
                 ListId = inProgressList.Id
             };
             _context.Cards.Add(thirdCard);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (UsersExists(users.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetUsers", new { id = users.Id }, ItemToDTO(users));
         }
-
-        // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<UsersDTO>> DeleteUsers(string id)
-        {
-            var users = await _context.Users.FindAsync(id);
-            if (users == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(users);
-            await _context.SaveChangesAsync();
-
-            return ItemToDTO(users);
-        }
-
-        private bool UsersExists(string id)
-        {
-            return _context.Users.Any(e => e.Id == id);
-        }
-
-        public static UsersDTO ItemToDTO(Users users) =>
-        new UsersDTO
-        {
-            Id = users.Id,
-            FirstName = users.FirstName,
-            LastName = users.LastName,
-            Username = users.Username,
-            Token = users.Token
-        };
     }
 }
