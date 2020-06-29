@@ -1,6 +1,16 @@
 # kanson-netcore-backend
 Kanson - A Kanban Board with Masonry layout
 
+![image](https://user-images.githubusercontent.com/25080659/83320424-fe55cd80-a279-11ea-9ae9-fc291120df55.png)
+
+Source code: 
+
+Frontend - https://github.com/tyrng/kanson-react-frontend
+
+Backend - https://github.com/tyrng/kanson-netcore-backend
+
+Hosted at: https://kanson.herokuapp.com/
+
 # Features
 - Masonry layout!
 - Easy drag and drop like any Kanban Board
